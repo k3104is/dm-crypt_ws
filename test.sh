@@ -7,7 +7,7 @@ LOOP_DEV=$(losetup -f)
 sudo losetup ${LOOP_DEV} ./encrypted.img
 #sudo mkfs -t ext4 -O has_journal ${LOOP_DEV}
 #sudo dmsetup -v create encrypted --table "0 $(sudo blockdev --getsize ${LOOP_DEV}) crypt capi:cbc(aes)-plain :36:logon:logkey: 0 ${LOOP_DEV} 0 1 sector_size:512"
-sudo dmsetup -v create encrypted --table "0 $(sudo blockdev --getsize /dev/loop12) crypt aes-cbc-essiv:sha256 babebabebabebabebabebabebabebabe 0 /dev/loop12 0"
+sudo dmsetup -v create encrypted --table "0 $(sudo blockdev --getsize ${LOOP_DEV}) crypt aes-cbc-essiv:sha256 babebabebabebabebabebabebabebabe 0 ${LOOP_DEV} 0"
 sudo dmsetup table --showkey encrypted
 
 # mount, write and remove
